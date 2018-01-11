@@ -1,0 +1,72 @@
+find_package( Sophus REQUIRED )
+include_directories( ${Sophus_INCLUDE_DIRS} )
+
+# 声明要求的 cmake 最低版本
+cmake_minimum_required( VERSION 2.8 )
+
+# 声明一个 cmake 工程
+project( HelloSLAM )
+
+# 设置编译模式
+set( CMAKE_BUILD_TYPE "Debug" )
+
+# 添加一个可执行程序
+# 语法：add_executable( 程序名 源代码文件 ）
+add_executable( helloSLAM helloSLAM.cpp )
+
+# 添加一个库
+add_library( hello libHelloSLAM.cpp )
+# 共享库
+add_library( hello_shared SHARED libHelloSLAM.cpp )
+
+add_executable( useHello useHello.cpp )
+# 将库文件链接到可执行程序上
+target_link_libraries( useHello hello_shared )
+
+# 添加Eigen头文件
+include_directories( "/usr/include/eigen3" )
+
+cmake_minimum_required( VERSION 2.8 )
+project( visualizeGeometry )
+
+set(CMAKE_CXX_FLAGS "-std=c++11")
+
+# 添加Eigen头文件
+include_directories( "/usr/include/eigen3" )
+
+# 添加Pangolin依赖
+find_package( Pangolin )
+include_directories( ${Pangolin_INCLUDE_DIRS} )
+cmake_minimum_required( VERSION 2.8 )
+project( visualizeGeometry )
+
+set(CMAKE_CXX_FLAGS "-std=c++11")
+
+# 添加Eigen头文件
+include_directories( "/usr/include/eigen3" )
+
+# 添加Pangolin依赖
+find_package( Pangolin )
+include_directories( ${Pangolin_INCLUDE_DIRS} )
+
+add_executable( visualizeGeometry visualizeGeometry.cpp )
+target_link_libraries( visualizeGeometry ${Pangolin_LIBRARIE
+
+
+cmake_minimum_required( VERSION 2.8 )
+project( imageBasics )
+
+# 添加c++ 11标准支持
+set( CMAKE_CXX_FLAGS "-std=c++11" )
+
+# 寻找OpenCV库
+find_package( OpenCV REQUIRED )
+# 添加头文件
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+include_directories( /usr/local/Cellar/eigen/3.3.3/include/eigen3 )
+include_directories( "/usr/include/eigen3" )
+link_directories 指定连接器查找库的路径
+link_directories(directory1 directory2 ...) 　　指定连接器搜索库文件时的路径。该命令仅仅能用在那些在它被调用后才生成的目标上。由于历史上的原因，为该命令指定的相对路径将会不加改变地传递给连接器（不像许多其他CMake命令那样解释为相对于当前源路径的相对路径。）
+add_executable( imageBasics imageBasics.cpp )
+# 链接OpenCV库
+target_link_libraries( imageBasics ${OpenCV_LIBS} )
